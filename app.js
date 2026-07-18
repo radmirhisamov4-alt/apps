@@ -1,56 +1,187 @@
-const header = document.querySelector('[data-header]');
-const menuButton = document.querySelector('[data-menu-toggle]');
-const nav = document.querySelector('[data-nav]');
+document.documentElement.classList.add('js');
+
+const menuToggle = document.querySelector('[data-menu-toggle]');
+const navigation = document.querySelector('[data-nav]');
+const searchInput = document.querySelector('[data-search]');
+const filterButtons = [...document.querySelectorAll('[data-filter]')];
+const products = [...document.querySelectorAll('[data-product]')];
+const catalogStatus = document.querySelector('[data-status]');
+const emptyState = document.querySelector('[data-empty-state]');
+const resetSearchButton = document.querySelector('[data-reset-search]');
 const toast = document.querySelector('[data-toast]');
 
-const setHeaderState = () => header?.classList.toggle('scrolled', window.scrollY > 16);
-setHeaderState();
-window.addEventListener('scroll', setHeaderState, { passive: true });
+let activePlatform = 'all';
+let toastTimer;
 
-menuButton?.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(open));
+function normalize(value) {
+  return value.trim().toLocaleLowerCase('ru-RU').replace(/ё/g, 'е');
+}
+
+function appWord(count) {
+  const lastTwo = count % 100;
+  const last = count % 10;
+  if (lastTwo >= 11 && lastTwo <= 14) return 'приложений';
+  if (last === 1) return 'приложение';
+  if (last >= 2 && last <= 4) return 'приложения';
+  return 'приложений';
+}
+
+function updateCounts() {
+  document.querySelectorAll('[data-count]').forEach((counter) => {
+    const platform = counter.dataset.count;
+    const count = platform === 'all'
+      ? products.length
+      : products.filter((product) => product.dataset.platform === platform).length;
+    counter.textContent = String(count);
+  });
+}
+
+function applyFilters() {
+  const query = normalize(searchInput?.value || '');
+  let visibleCount = 0;
+
+  products.forEach((product) => {
+    const matchesPlatform = activePlatform === 'all' || product.dataset.platform === activePlatform;
+    const matchesSearch = !query || normalize(product.dataset.searchText || product.textContent).includes(query);
+    const isVisible = matchesPlatform && matchesSearch;
+    product.hidden = !isVisible;
+    if (isVisible) {
+      visibleCount += 1;
+      product.classList.add('visible');
+    }
+  });
+
+  if (catalogStatus) {
+    const platformLabel = activePlatform === 'windows' ? 'для Windows' : activePlatform === 'android' ? 'для Android' : 'в каталоге';
+    catalogStatus.textContent = query
+      ? `Найдено ${visibleCount} ${appWord(visibleCount)} ${platformLabel}`
+      : `Доступно ${visibleCount} ${appWord(visibleCount)} ${platformLabel}`;
+  }
+
+  if (emptyState) emptyState.hidden = visibleCount !== 0;
+}
+
+function activatePlatform(button, moveFocus = false) {
+  activePlatform = button.dataset.filter;
+  filterButtons.forEach((item) => {
+    const isActive = item === button;
+    item.classList.toggle('active', isActive);
+    item.setAttribute('aria-selected', String(isActive));
+    item.tabIndex = isActive ? 0 : -1;
+  });
+  applyFilters();
+  if (moveFocus) button.focus();
+}
+
+filterButtons.forEach((button, index) => {
+  button.addEventListener('click', () => activatePlatform(button));
+  button.addEventListener('keydown', (event) => {
+    let nextIndex = index;
+    if (event.key === 'ArrowRight') nextIndex = (index + 1) % filterButtons.length;
+    else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + filterButtons.length) % filterButtons.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = filterButtons.length - 1;
+    else return;
+
+    event.preventDefault();
+    activatePlatform(filterButtons[nextIndex], true);
+  });
 });
 
-nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  menuButton?.setAttribute('aria-expanded', 'false');
-}));
+searchInput?.addEventListener('input', applyFilters);
 
-document.querySelector('[data-year]').textContent = new Date().getFullYear();
+document.addEventListener('keydown', (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLocaleLowerCase() === 'k') {
+    event.preventDefault();
+    searchInput?.focus();
+  }
+  if (event.key === 'Escape') {
+    if (document.activeElement === searchInput && searchInput.value) {
+      searchInput.value = '';
+      applyFilters();
+    } else {
+      closeMenu();
+    }
+  }
+});
+
+resetSearchButton?.addEventListener('click', () => {
+  if (searchInput) searchInput.value = '';
+  const allButton = filterButtons.find((button) => button.dataset.filter === 'all');
+  if (allButton) activatePlatform(allButton);
+  searchInput?.focus();
+});
+
+function closeMenu() {
+  navigation?.classList.remove('open');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
+}
+
+menuToggle?.addEventListener('click', () => {
+  const willOpen = !navigation?.classList.contains('open');
+  navigation?.classList.toggle('open', willOpen);
+  menuToggle.setAttribute('aria-expanded', String(willOpen));
+  document.body.classList.toggle('menu-open', willOpen);
+});
+
+navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+function showToast(message) {
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('visible'), 2200);
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove();
+}
 
 document.querySelectorAll('[data-copy-hash]').forEach((button) => {
   button.addEventListener('click', async () => {
     const hash = button.closest('.hash-row')?.querySelector('code')?.textContent?.trim();
     if (!hash) return;
     try {
-      await navigator.clipboard.writeText(hash);
-      button.textContent = 'Готово';
-      toast?.classList.add('visible');
-      window.setTimeout(() => {
-        button.textContent = 'Копировать';
-        toast?.classList.remove('visible');
-      }, 1800);
+      await copyText(hash);
+      showToast('SHA-256 скопирован');
     } catch {
-      button.textContent = 'Выделите вручную';
+      showToast('Не удалось скопировать');
     }
   });
 });
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revealItems = document.querySelectorAll('.reveal');
-
-if (reduceMotion || !('IntersectionObserver' in window)) {
-  revealItems.forEach((item) => item.classList.add('visible'));
-} else {
+if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
     });
-  }, { threshold: .1, rootMargin: '0px 0px -40px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px' });
   revealItems.forEach((item) => observer.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add('visible'));
 }
 
+document.querySelectorAll('[data-year]').forEach((node) => {
+  node.textContent = String(new Date().getFullYear());
+});
+
+updateCounts();
+applyFilters();

@@ -8,10 +8,8 @@ const products = [...document.querySelectorAll('[data-product]')];
 const catalogStatus = document.querySelector('[data-status]');
 const emptyState = document.querySelector('[data-empty-state]');
 const resetSearchButton = document.querySelector('[data-reset-search]');
-const toast = document.querySelector('[data-toast]');
 
 let activePlatform = 'all';
-let toastTimer;
 
 function normalize(value) {
   return value.trim().toLocaleLowerCase('ru-RU').replace(/ё/g, 'е');
@@ -126,44 +124,6 @@ menuToggle?.addEventListener('click', () => {
 });
 
 navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-
-function showToast(message) {
-  if (!toast) return;
-  toast.textContent = message;
-  toast.classList.add('visible');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('visible'), 2200);
-}
-
-async function copyText(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  textarea.setAttribute('readonly', '');
-  textarea.style.position = 'fixed';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  textarea.remove();
-}
-
-document.querySelectorAll('[data-copy-hash]').forEach((button) => {
-  button.addEventListener('click', async () => {
-    const hash = button.closest('.hash-row')?.querySelector('code')?.textContent?.trim();
-    if (!hash) return;
-    try {
-      await copyText(hash);
-      showToast('SHA-256 скопирован');
-    } catch {
-      showToast('Не удалось скопировать');
-    }
-  });
-});
 
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {

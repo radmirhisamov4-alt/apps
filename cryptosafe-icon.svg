@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">CryptoSafe</title>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="#101820"/>
+  <path fill="#2DD4BF" d="M24 9a11 11 0 0 0-11 11v4h6v-4a5 5 0 0 1 10 0v4h6v-4A11 11 0 0 0 24 9Z"/>
+  <rect x="9" y="22" width="30" height="17" rx="3" fill="#F8FAFC"/>
+  <path fill="#101820" d="M24 27a3 3 0 0 0-1 5.83V36h2v-3.17A3 3 0 0 0 24 27Z"/>
+</svg>
+

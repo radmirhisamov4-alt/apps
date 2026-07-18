@@ -143,5 +143,19 @@ document.querySelectorAll('[data-year]').forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
+document.querySelectorAll('[data-version-select]').forEach((select) => {
+  const card = select.closest('[data-product]');
+  const download = card?.querySelector('[data-version-download]');
+  const size = card?.querySelector('[data-version-size]');
+  const label = card?.querySelector('[data-version-label]');
+
+  select.addEventListener('change', () => {
+    const option = select.selectedOptions[0];
+    if (download) download.href = option.value;
+    if (size) size.textContent = option.dataset.size || '';
+    if (label) label.textContent = `Test · v${option.dataset.version || select.value}`;
+  });
+});
+
 updateCounts();
 applyFilters();

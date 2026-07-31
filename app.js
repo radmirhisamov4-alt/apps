@@ -42,6 +42,9 @@ function renderVisual(app) {
   if (app.visual === "keyboard") {
     return '<div class="keyboard-mini" aria-hidden="true"><div class="keyboard-mini-row"><i>Й</i><i>Ц</i><i>У</i><i>К</i></div><div class="keyboard-mini-row"><i>Ф</i><i>Ы</i><i>В</i></div><div class="keyboard-mini-row"><i>123</i><i>RU · EN</i><i>⌫</i></div></div>';
   }
+  if (app.visual === "password") {
+    return '<div class="vault-mini" aria-hidden="true"><span></span><i>•••</i></div>';
+  }
   return `<img src="${escapeHtml(app.icon || "")}" alt="">`;
 }
 
@@ -77,7 +80,7 @@ function renderApps() {
         <span class="app-index">${String(index + 1).padStart(2, "0")}</span>
         <div class="app-visual visual-${escapeHtml(app.visual)}">${renderVisual(app)}</div>
         <div class="app-info">
-          <div class="app-kicker"><span>${escapeHtml(app.platformLabel)}</span><span class="app-badge${app.updated ? " updated" : ""}" data-status-badge>${app.updated ? "Обновлено" : escapeHtml(current.status)}</span></div>
+          <div class="app-kicker"><span>${escapeHtml(app.platformLabel)}</span><span class="app-badge${app.updated ? " updated" : app.new ? " new" : ""}" data-status-badge>${app.updated ? "Обновлено" : app.new ? "Новое" : escapeHtml(current.status)}</span></div>
           <h3>${escapeHtml(app.name)}</h3>
           <p class="app-description">${escapeHtml(app.description)}</p>
           <ul class="feature-list">${features}</ul>

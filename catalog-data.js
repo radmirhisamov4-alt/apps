@@ -24,7 +24,7 @@ window.RADMIR_APPS = [
     versions: [
       {
         version: "1.0.29", size: "21,04 МБ", date: "31 июля 2026", status: "Тестовая",
-        url: "https://github.com/radmirhisamov4-alt/CryptoSafe/releases/download/v1.0.29/CryptoSafe-1.0.29.apk",
+        url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/CryptoSafe-1.0.29.apk",
         changes: { added: "Автоматический запрос биометрии при входе и короткие беззвучные превью видео в хранилище.", removed: "—" }
       },
       {
@@ -48,7 +48,7 @@ window.RADMIR_APPS = [
     versions: [
       {
         version: "1.2.1", size: "49,61 МБ", date: "31 июля 2026", status: "Тестовая",
-        url: "https://github.com/radmirhisamov4-alt/Keybor/releases/download/v1.2.1/Offline-Privacy-Keyboard-1.2.1.apk",
+        url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/Offline-Privacy-Keyboard-1.2.1.apk",
         changes: { added: "Живой предпросмотр оформления, настройка размера текста и интервалов клавиш, несколько вариантов автозамены и команда /gmail.", removed: "Упрощённый режим оформления клавиатуры." }
       },
       {
@@ -75,7 +75,7 @@ window.RADMIR_APPS = [
     new: true,
     versions: [{
       version: "1.0.0", size: "11,16 МБ", date: "31 июля 2026", status: "Тестовая",
-      url: "https://github.com/radmirhisamov4-alt/password-vault-android/releases/download/v1.0.0/Password-Vault-1.0.0.apk",
+      url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/Password-Vault-1.0.0.apk",
       changes: { added: "Первая версия: безопасное хранение и генерация паролей, поиск, избранное, биометрия и зашифрованные резервные копии.", removed: "—" }
     }]
   }

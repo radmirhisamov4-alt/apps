@@ -72,11 +72,21 @@ window.RADMIR_APPS = [
     features: ["AES-256-GCM", "Биометрия", "Импорт / экспорт"],
     visual: "password",
     fileType: "APK",
-    new: true,
-    versions: [{
-      version: "1.0.0", size: "11,16 МБ", date: "31 июля 2026", status: "Тестовая",
-      url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/Password-Vault-1.0.0.apk",
-      changes: { added: "Первая версия: безопасное хранение и генерация паролей, поиск, избранное, биометрия и зашифрованные резервные копии.", removed: "—" }
-    }]
+    updated: true,
+    versions: [
+      {
+        version: "1.1.0", size: "11,19 МБ", date: "16 августа 2026", status: "Тестовая",
+        url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/Password-Vault-1.1.0.apk",
+        changes: {
+          added: "Резервные копии теперь сохраняют настройки и совместимы с форматом 1.0. Добавлены сохранение сгенерированного пароля в новую запись, предупреждение о несохранённых изменениях и улучшенная биометрия.",
+          removed: "—"
+        }
+      },
+      {
+        version: "1.0.0", size: "11,16 МБ", date: "31 июля 2026", status: "Предыдущая",
+        url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/Password-Vault-1.0.0.apk",
+        changes: { added: "Первая версия: безопасное хранение и генерация паролей, поиск, избранное, биометрия и зашифрованные резервные копии.", removed: "—" }
+      }
+    ]
   }
 ];

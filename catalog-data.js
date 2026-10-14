@@ -1,5 +1,25 @@
 window.RADMIR_APPS = [
   {
+    id: "voicechat",
+    name: "VoiceChat",
+    platform: "windows",
+    platformLabel: "Windows 10 / 11 · x64",
+    description: "Голосовой чат с прямыми комнатами и приглашениями. Настройте микрофон, используйте режим «Нажми и говори» и регулируйте громкость каждого участника.",
+    features: ["Голосовые комнаты", "Push-to-Talk", "RU / EN"],
+    visual: "voicechat",
+    icon: "voicechat-icon.svg",
+    fileType: "EXE",
+    new: true,
+    versions: [{
+      version: "1.0.4", size: "49,81 МБ", date: "2 октября 2026", status: "Текущая",
+      url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.4-win-x64.exe",
+      changes: {
+        added: "Регулировка громкости участников, проверка подключения, быстрый возврат в последнюю комнату и отключаемое автоматическое выравнивание микрофона. Установщик включает .NET.",
+        removed: "—"
+      }
+    }]
+  },
+  {
     id: "algomotion",
     name: "AlgoMotion",
     platform: "windows",

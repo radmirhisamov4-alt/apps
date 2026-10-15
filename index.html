@@ -10,11 +10,26 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://radmirhisamov4-alt.github.io/apps/">
   <title>Radmir Apps — каталог приложений</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=corporation-intro-1">
+  <script src="intro.js?v=corporation-intro-1" defer></script>
   <script src="catalog-data.js?v=voicechat-1.0.8-all" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
+  <dialog class="brand-intro" id="brand-intro" aria-labelledby="intro-brand">
+    <div class="intro-orbit" aria-hidden="true"><span>R</span></div>
+    <div class="intro-scene intro-scene-brand">
+      <p class="intro-eyebrow">НЕЗАВИСИМАЯ КОРПОРАЦИЯ ОДНОГО ЧЕЛОВЕКА</p>
+      <p class="intro-brand" id="intro-brand">Radmir<span>Corporation</span></p>
+      <p class="intro-presents">представляет</p>
+    </div>
+    <div class="intro-scene intro-scene-world">
+      <p class="intro-world">Тот, кто придумал<br><em>этот мир.</em></p>
+      <p class="intro-footnote">Ну, хотя бы этот сайт.</p>
+    </div>
+    <button class="intro-skip" type="button" id="intro-skip" autofocus>Пропустить <span aria-hidden="true">↗</span></button>
+    <div class="intro-timeline" aria-hidden="true"></div>
+  </dialog>
   <a class="skip-link" href="#catalog">Перейти к каталогу</a>
 
   <header class="site-header">
@@ -113,7 +128,7 @@
     <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">R</span><span>RADMIR APPS</span></a>
     <p>Приложения для Windows и Android</p>
     <nav aria-label="Навигация в подвале"><a href="#catalog">Каталог</a><a href="#updates">Обновления</a></nav>
-    <small>© <span data-year>2026</span> Radmir Apps</small>
+    <small>© <span data-year>2026</span> Radmir Apps <button class="intro-replay" type="button" id="intro-replay" hidden>Повторить заставку ↗</button></small>
   </footer>
 </body>
 </html>

@@ -4,7 +4,6 @@
   if (!intro || !skip || typeof intro.showModal !== "function") return;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const replay = document.getElementById("intro-replay");
-  const sessionKey = "radmir-corporation-intro-v1";
   let timer;
   let sceneTimer;
   const finish = () => {
@@ -12,7 +11,6 @@
     clearTimeout(sceneTimer);
     if (intro.open) intro.close();
     document.body.classList.remove("intro-active");
-    try { sessionStorage.setItem(sessionKey, "seen"); } catch { /* Optional preference. */ }
   };
   skip.addEventListener("click", finish);
   intro.addEventListener("cancel", event => { event.preventDefault(); finish(); });
@@ -31,9 +29,9 @@
     replay.hidden = false;
     replay.addEventListener("click", play);
   }
-  if (reducedMotion) return;
-  try {
-    if (sessionStorage.getItem(sessionKey)) return;
-  } catch { /* The intro also works when browser storage is unavailable. */ }
+  window.addEventListener("pagehide", finish);
+  window.addEventListener("pageshow", event => {
+    if (event.persisted && !intro.open) play();
+  });
   play();
 })();

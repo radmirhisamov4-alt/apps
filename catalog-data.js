@@ -10,7 +10,10 @@ window.RADMIR_APPS = [
     icon: "voicechat-icon.svg",
     fileType: "EXE",
     versions: [
-      { version: "1.0.8", size: "56,09 МБ", date: "15 октября 2026", status: "Текущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.8-win-x64.exe" },
+      { version: "1.0.11", size: "56,19 МБ", date: "18 октября 2026", status: "Тестовая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.11-win-x64.exe" },
+      { version: "1.0.10", size: "56,17 МБ", date: "18 октября 2026", status: "Предыдущая тестовая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.10-win-x64.exe" },
+      { version: "1.0.9", size: "56,16 МБ", date: "18 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.9-win-x64.exe" },
+      { version: "1.0.8", size: "56,09 МБ", date: "15 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.8-win-x64.exe" },
       { version: "1.0.7", size: "54,70 МБ", date: "15 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.7-win-x64.exe" },
       { version: "1.0.6", size: "54,71 МБ", date: "15 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.6-win-x64.exe" },
       { version: "1.0.5", size: "54,65 МБ", date: "15 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.5-win-x64.exe" },

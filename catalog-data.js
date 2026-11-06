@@ -1,15 +1,16 @@
 window.RADMIR_APPS = [
   {
     id: "voicechat",
-    name: "VoiceChat",
+    name: "RadmirVoice / VoiceChat",
     platform: "windows",
     platformLabel: "Windows 10 / 11 · x64",
-    description: "Голосовой чат с прямыми комнатами и приглашениями. Настройте микрофон, используйте режим «Нажми и говори» и регулируйте громкость каждого участника.",
+    description: "Голосовой чат для Windows. Настройте микрофон, используйте режим «Нажми и говори» и регулируйте громкость участников. В списке доступны бета-версия RadmirVoice 2.0 и предыдущие версии VoiceChat.",
     features: ["Голосовые комнаты", "Push-to-Talk", "RU / EN"],
     visual: "voicechat",
     icon: "voicechat-icon.svg",
     fileType: "EXE",
     versions: [
+      { version: "2.0.0-rc.2", size: "73,01 МБ", date: "6 ноября 2026", status: "Бета · RC2", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/RadmirVoiceSetup-2.0.0-rc.2.exe" },
       { version: "1.0.11", size: "56,19 МБ", date: "18 октября 2026", status: "Тестовая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.11-win-x64.exe" },
       { version: "1.0.10", size: "56,17 МБ", date: "18 октября 2026", status: "Предыдущая тестовая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.10-win-x64.exe" },
       { version: "1.0.9", size: "56,16 МБ", date: "18 октября 2026", status: "Предыдущая", url: "https://github.com/radmirhisamov4-alt/apps/raw/refs/heads/main/downloads/VoiceChat-Setup-1.0.9-win-x64.exe" },
